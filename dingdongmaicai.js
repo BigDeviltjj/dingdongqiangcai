@@ -8,38 +8,50 @@ cnt = 0
 const start = () => {
 	// 是否有结算按钮
     toast('111')
-	if (textStartsWith("继续支付").exists()) {
+	if (textStartsWith("下单失败").exists()) {
 		// if (text("继续支付").findOne().clickable()) {
 			// text("继续支付").findOne().click()
 		// }
 		// else 
 		// text("继续支付").findOne().parent().click()
-		while (1) {}
+		text("返回购物车").findOne().click()
+		sleep(200)
+		start()
+	} else
+	if (textStartsWith("继续支付").exists()) {
+		// if (text("继续支付").findOne().clickable()) {
+			// text("继续支付").findOne().click()
+		// }
+		// else 
+		text("继续支付").findOne().click()		
+		sleep(200)
+
+		//while (1) {}
 		start()
 	}
 	if (textStartsWith("重新加载").exists()) {
 		textStartsWith("重新加载").findOne().parent().click()
 		while (textStartsWith("重新加载").exists()) {
-			sleep(50)		
+			sleep(200)		
 		}
 		start()
 	}
 	else 
 	if (textStartsWith("去结算").exists()) {
 		textStartsWith("去结算").findOne().click()
-		sleep(50)		
+		sleep(200)		
 		start()
 	}
 	else 
 	if (hasText("立即支付")) {
 		toast("立即支付")
 		text("立即支付").findOne().click()
-		sleep(50)
+		sleep(200)
 	}
 	else if (hasText("选择送达时间") && text("选择送达时间").findOne().clickable()) {
 		toast("选择送达时间")
 		text("选择送达时间").findOne().click()
-		sleep(50)
+		sleep(200)
 	}
 	else if (hasText("选择送达时间") && !text("选择送达时间").findOne().clickable()) {
 		toast("选择时间段")
@@ -61,7 +73,7 @@ const start = () => {
 				}
 				if (ignore == 0) {
 					textStartsWith(t).findOne().parent().click()
-					sleep(500)
+					sleep(200)
 					start()
 				}
 			}
@@ -82,7 +94,7 @@ const start = () => {
 				}
 				if (ignore == 0) {
 					textStartsWith(t).findOne().parent().click()
-					sleep(500)
+					sleep(200)
 					start()
 				}
 			}
@@ -103,7 +115,7 @@ const start = () => {
 				}
 				if (ignore == 0) {
 					textStartsWith(t).findOne().parent().click()
-					sleep(500)
+					sleep(200)
 					start()
 				}
 			}
@@ -124,22 +136,22 @@ const start = () => {
 				}
 				if (ignore == 0) {
 					textStartsWith(t).findOne().parent().click()
-					sleep(500)
+					sleep(200)
 					start()
 				}
 			}
 
 		}
 		toast("全部约满")
-		sleep(50)
+		sleep(200)
 
 		back()
-		sleep(300)
+		sleep(200)
 		back()
-		sleep(300)
+		sleep(200)
 
 		start()
-		sleep(50)
+		sleep(200)
 	}
 		
 	start()

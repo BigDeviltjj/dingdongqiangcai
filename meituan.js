@@ -5,7 +5,7 @@ sleep(1000);
 auto.waitFor()
 // 点击结算
 const clickSettle = () => {
-	className("android.view.View").depth(21).findOne().parent().click()
+	className("android.widget.TextView").textStartsWith("结算").findOne().parent().click()
 }
 // 点击我知道了
 const clickKnow = () => {
@@ -27,26 +27,44 @@ const hasText = (text) => {
 const start = () => {
 	// 是否有结算按钮
 	toast("start")
-    if (hasText('当前不在可下单时段') || hasText('很抱歉')) 
+	if (hasText("前方拥堵") &&className("android.widget.TextView").text('返回购物车').exists()) 
+    {
+		toast("前方拥堵")
+		sleep(200)
+		className("android.widget.TextView").text('返回购物车').findOne().parent().click()
+		sleep(200)
+		start()
+	} else
+	if (hasText("重新加载")) 
+    {
+		toast("重新加载")
+		sleep(200)
+		className("android.widget.TextView").depth(20).findOne().parent().click()
+		sleep(200)
+		start()
+	} else
+    if ( hasText('订单已约满') || hasText('当前不在可下单时段') || hasText('很抱歉') || hasText('门店已打烊') || textContains("繁忙").exists()) 
     {
 		toast("我知道了")
+		sleep(200)
 		clickKnow()
-		sleep(1000)
+		sleep(200)
 		start()
 	} 
 	else if (hasText("结算")) 
     {
 		// 点击结算
 		toast("结算")
+		sleep(200)
 		clickSettle()
-		sleep(1000)
+		sleep(200)
 		start()
 	} 
     else if (hasText('立即支付')) 
     {
 		toast("立即支付")
 		clickPay()
-		sleep(1000)
+		sleep(200)
 		start()
         toast('抢到了')
 	} 
@@ -54,13 +72,13 @@ const start = () => {
     {
 		toast("放弃机会")
 		clickGiveup()
-		sleep(1000)
+		sleep(500)
 		start()
 	} 
     else 
     {
         toast('???')
-        sleep(1000)
+        sleep(500)
 		start()
 	}
 }
